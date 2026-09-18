@@ -1,0 +1,208 @@
+{
+  "openapi": "3.0.3",
+  "info": {
+    "title": "API de Reservas de Hotel",
+    "version": "1.0.0"
+  },
+  "paths": {
+    "/reservas": {
+      "get": {
+        "summary": "Consultar reservas",
+        "responses": {
+          "200": {
+            "description": "Lista de reservas obtenida",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/Reserva"
+                  }
+                }
+              }
+            }
+          }
+        }
+      },
+      "post": {
+        "summary": "Crear reserva",
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ReservaInput"
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": "Reserva creada",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Reserva"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/reservas/{id}": {
+      "get": {
+        "summary": "Consultar reserva por id",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Reserva encontrada",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Reserva"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Reserva no encontrada"
+          }
+        }
+      },
+      "put": {
+        "summary": "Actualizar reserva",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer"
+            }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ReservaInput"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Reserva actualizada",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Reserva"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Reserva no encontrada"
+          }
+        }
+      },
+      "patch": {
+        "summary": "Cancelar reserva",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Reserva cancelada con éxito",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Reserva"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Reserva no encontrada"
+          }
+        }
+      }
+    }
+  },
+  "components": {
+    "schemas": {
+      "Reserva": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "integer"
+          },
+          "nombreCliente": {
+            "type": "string"
+          },
+          "habitacion": {
+            "type": "string"
+          },
+          "fechaEntrada": {
+            "type": "string",
+            "format": "date"
+          },
+          "fechaSalida": {
+            "type": "string",
+            "format": "date"
+          },
+          "estado": {
+            "type": "string"
+          }
+        }
+      },
+      "ReservaInput": {
+        "type": "object",
+        "required": [
+          "nombreCliente",
+          "habitacion",
+          "fechaEntrada",
+          "fechaSalida",
+          "estado"
+        ],
+        "properties": {
+          "nombreCliente": {
+            "type": "string"
+          },
+          "habitacion": {
+            "type": "string"
+          },
+          "fechaEntrada": {
+            "type": "string",
+            "format": "date"
+          },
+          "fechaSalida": {
+            "type": "string",
+            "format": "date"
+          },
+          "estado": {
+            "type": "string"
+          }
+        }
+      }
+    }
+  }
+}

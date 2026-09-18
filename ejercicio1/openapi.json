@@ -1,0 +1,179 @@
+{
+  "openapi": "3.0.3",
+  "info": {
+    "title": "API de Biblioteca",
+    "version": "1.0.0"
+  },
+  "paths": {
+    "/libros": {
+      "get": {
+        "summary": "Consultar libros",
+        "parameters": [
+          {
+            "name": "titulo",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Lista de libros obtenida",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/Libro"
+                  }
+                }
+              }
+            }
+          }
+        }
+      },
+      "post": {
+        "summary": "Registrar libro",
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/LibroInput"
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": "Libro registrado",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Libro"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/libros/{id}": {
+      "put": {
+        "summary": "Actualizar libro",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer"
+            }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/LibroInput"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Libro actualizado",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Libro"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Libro no encontrado"
+          }
+        }
+      },
+      "delete": {
+        "summary": "Eliminar libro",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer"
+            }
+          }
+        ],
+        "responses": {
+          "204": {
+            "description": "Libro eliminado"
+          },
+          "404": {
+            "description": "Libro no encontrado"
+          }
+        }
+      }
+    }
+  },
+  "components": {
+    "schemas": {
+      "Libro": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "integer"
+          },
+          "titulo": {
+            "type": "string"
+          },
+          "autor": {
+            "type": "string"
+          },
+          "isbn": {
+            "type": "string"
+          },
+          "anioPublicacion": {
+            "type": "integer"
+          },
+          "estado": {
+            "type": "string"
+          }
+        }
+      },
+      "LibroInput": {
+        "type": "object",
+        "required": [
+          "titulo",
+          "autor",
+          "isbn",
+          "anioPublicacion",
+          "estado"
+        ],
+        "properties": {
+          "titulo": {
+            "type": "string"
+          },
+          "autor": {
+            "type": "string"
+          },
+          "isbn": {
+            "type": "string"
+          },
+          "anioPublicacion": {
+            "type": "integer"
+          },
+          "estado": {
+            "type": "string"
+          }
+        }
+      }
+    }
+  }
+}
