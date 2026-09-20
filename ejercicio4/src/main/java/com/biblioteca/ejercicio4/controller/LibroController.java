@@ -1,4 +1,4 @@
-package com.biblioteca.controller;
+package com.biblioteca.ejercicio4.controller;
 
 import com.biblioteca.ejercicio4.model.Libro;
 import com.biblioteca.ejercicio4.service.LibroService;
@@ -28,9 +28,7 @@ public class LibroController {
 
     @PutMapping("/{id}")
     public ResponseEntity<Libro> actualizarLibro(@PathVariable Long id, @RequestBody Libro libro) {
-        return service.actualizar(id, libro)
-                .map(ResponseEntity::ok)
-                .orElse(ResponseEntity.notFound().build());
+        return service.actualizar(id, libro).map(ResponseEntity::ok).orElse(ResponseEntity.notFound().build());
     }
 
     @DeleteMapping("/{id}")
